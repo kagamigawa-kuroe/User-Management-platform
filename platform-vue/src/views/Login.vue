@@ -23,14 +23,14 @@
           <el-input v-model="loginForm.password"></el-input>
         </el-form-item>
 
-        <el-form-item label="Auth code" prop="code" style="width: 380px">
-          <el-input v-model="loginForm.code" style="width: 172px;float: left"></el-input>
-          <el-image src="" class="codeimage"></el-image>
+        <el-form-item label="Auth code" prop="code"  style="width: 380px;">
+          <el-input v-model="loginForm.code"  style="width: 172px; float: left" maxlength="5"></el-input>
+          <el-image :src="codeimage" class="codeimage" @click="codeimage"></el-image>
         </el-form-item>
 
-        <el-form-item style="align-items: center">
-          <el-button type="primary" @click="submitForm('loginForm')">Create</el-button>
-          <el-button @click="resetForm('loginForm')">Reset</el-button>
+        <el-form-item >
+          <el-button type="primary" @click="submitForm('loginForm')">立即创建</el-button>
+          <el-button @click="resetForm('loginForm')">重置</el-button>
         </el-form-item>
 
       </el-form>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   name:"login",
   data() {
@@ -47,7 +48,8 @@ export default {
       loginForm: {
         username: 'admin',
         password: '',
-        code: ''
+        code: '',
+        token:''
       },
 
       image: require('/Users/whz/learning/User-Management-platform/platform-vue/src/assets/bgn.png'),
@@ -63,14 +65,19 @@ export default {
           { required: true, message: 'Please input code', trigger: 'blur' },
           { min: 5, max: 5, message: 'Code should be in 5 characters', trigger: 'blur' }
         ]
-      }
+      },
+      codeimage: null
     };
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          this.$axios.post('/login',this.loginForm).then(res =>{
+            const jwt = res.headers['authorization']
+            this.$store.commit('SET_TOKEN',jwt);
+            this.$router.push("/index")
+          })
         } else {
           console.log('error submit!!');
           return false;
@@ -79,29 +86,35 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    getimage(){
+      this.$axios.get('/codeimage').then(res =>{
+        this.loginForm.token=res.data.data.token
+        this.codeimage=res.data.data.codeimage
+      })
     }
+  },
+  created(){
+    this.getimage();
   }
 }
 </script>
-<style scoped>
-.el-divider {
-  height: 200px;
-}
 
+<style scoped>
 .el-row {
   background-color: #fafafa;
   height: 100%;
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: center;
 }
-
+.el-divider {
+  height: 200px;
+}
 .codeimage {
   float: left;
   margin-left: 8px;
   border-radius: 4px;
 }
-
-
-
 </style>
