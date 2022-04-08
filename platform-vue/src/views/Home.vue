@@ -28,7 +28,9 @@
       </el-header>
       <el-main>
         <Tabs></Tabs>
-        <router-view></router-view>
+        <div style="margin:0 15px;">
+          <router-view></router-view>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -107,7 +109,6 @@ export default {
 .el-main {
   background-color: #E9EEF3;
   color: #333;
-  text-align: center;
   padding: 0px;
 }
 
