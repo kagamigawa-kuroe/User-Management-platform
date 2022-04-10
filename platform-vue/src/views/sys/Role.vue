@@ -72,7 +72,7 @@
 
         <template slot-scope="scope">
 
-          <el-button type = "text" @click="editHandle(scope.row.id)">edit permisson</el-button>
+          <el-button type = "text" @click="permHandle(scope.row.id)">edit permisson</el-button>
           <el-divider direction="vertical"></el-divider>
 
           <el-button type = "text" @click="editHandle(scope.row.id)">edit</el-button>
@@ -133,6 +133,27 @@
       </el-form>
     </el-dialog>
 
+    <el-dialog
+        title="Edit permisson"
+        :visible.sync="permdialogVisible"
+        width="30%">
+      <el-form :model="permForm">
+        <el-tree
+            :data="perTreedata"
+            show-checkbox
+            node-key="id"
+            :check-strictly=true
+            :default-expand-all="true"
+            ref="permTree"
+            :props="defaultProps">
+        </el-tree>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="permdialogVisible = false">Cancel</el-button>
+    <el-button type="primary" @click="submitPermFormHandle('permForm')">Confirm</el-button>
+  </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -141,6 +162,8 @@ export default {
   name: "Role",
   data(){
     return{
+      permForm:{},
+      permdialogVisible:false,
       dialogVisible:false,
       editFormRules: {
         name: [
@@ -170,11 +193,18 @@ export default {
       total:'0',
       size:'10',
       current:'1',
-
+      perTreedata: [],
+      defaultProps: {
+        children: 'children',
+        label: 'name'
+      }
     }
   },
   created() {
     this.getRolelist()
+    this.$axios.get('/sys/menu/list').then(res =>{
+      this.perTreedata = res.data.data
+    })
   },
   methods: {
     toggleSelection(rows) {
@@ -261,7 +291,7 @@ export default {
       this.$axios.post("/sys/role/delete/" + id).then(res => {
         this.$message({
           showClose: true,
-          message: '恭喜你，操作成功',
+          message: 'Congratulations, the operation is successful',
           type: 'success',
           onClose:() => {
             this.getRolelist()
@@ -269,6 +299,29 @@ export default {
         });
       })
     },
+    permHandle(id) {
+      this.permdialogVisible = true
+      this.$axios.get("/sys/role/info/" + id).then(res => {
+        this.$refs.permTree.setCheckedKeys(res.data.data.menuIds)
+        this.permForm = res.data.data
+      })
+    },
+    submitPermFormHandle(formName){
+      var menuIds = this.$refs.permTree.getCheckedKeys()
+
+      this.$axios.post('/sys/role/perm/' + this.permForm.id, menuIds).then(res => {
+        this.$message({
+          showClose: true,
+          message: 'Congratulations, the operation is successful',
+          type: 'success',
+          onClose:() => {
+            this.getRoleList()
+          }
+        });
+        this.permdialogVisible = false
+        this.resetForm(formName)
+      })
+    }
   }
 }
 </script>

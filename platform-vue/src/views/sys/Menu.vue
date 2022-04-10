@@ -235,7 +235,7 @@ export default {
       this.$axios.post("/sys/menu/delete/" + id).then(res => {
         this.$message({
           showClose: true,
-          message: '恭喜你，操作成功',
+          message: 'Congratulations, the operation is successful',
           type: 'success',
           onClose:() => {
             this.getMenuTree()

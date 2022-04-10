@@ -17,7 +17,7 @@ export default{
     },
     mutations: {
         setPermList(state,perm){
-            state.authoritys = perm
+            state.permList = perm
         },
         setMenuList(state,menus){
             state.menuList = menus

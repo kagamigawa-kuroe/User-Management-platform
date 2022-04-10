@@ -72,8 +72,7 @@ router.beforeEach((to,from,next) =>{
       // get menuList
       store.commit("setMenuList",res.data.data.nav)
       // get permission
-      store.commit("setPermList",res.data.data.nav)
-
+      store.commit("setPermList",res.data.data.authoritys)
       //Dynamic binding
       let newRoutes = router.options.routes
 
