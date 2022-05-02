@@ -12,7 +12,7 @@ Vue.prototype.$axios = axios
 
 // use web UI library Element-ui
 Vue.use(Element)
-require('./mock.js')
+// require('./mock.js')
 Vue.config.productionTip = false
 
 new Vue({

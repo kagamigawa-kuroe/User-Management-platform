@@ -24,8 +24,8 @@
         </el-form-item>
 
         <el-form-item label="Auth code" prop="code"  style="width: 380px;">
-          <el-input v-model="loginForm.code"  style="width: 172px; float: left" maxlength="5"></el-input>
-          <el-image :src="codeimage" class="codeimage" @click="codeimage"></el-image>
+          <el-input v-model="loginForm.code"  style="width: 120px; float: left" maxlength="5"></el-input>
+          <el-image :src="codeimage" class="codeimage" @click="getimage"></el-image>
         </el-form-item>
 
         <el-form-item >
@@ -73,7 +73,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post('/login',this.loginForm).then(res =>{
+          this.$axios.post('/login?'+ qs.stringify(this.loginForm)).then(res =>{
             const jwt = res.headers['authorization']
             this.$store.commit('SET_TOKEN',jwt);
             this.$router.push("/index")
@@ -88,9 +88,10 @@ export default {
       this.$refs[formName].resetFields();
     },
     getimage(){
-      this.$axios.get('/codeimage').then(res =>{
+      this.$axios.get('/captcha').then(res =>{
         this.loginForm.token=res.data.data.token
         this.codeimage=res.data.data.codeimage
+        this.loginForm.code= ''
       })
     }
   },

@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/platform?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Chloe0702
+  security:
+    user:
+      name: user
+      password: 111111
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+jwtconfig:
+  jwt:
+    header: Authorization
+    expire: 604800
+    secret: qoaksicnuwjn19182b218h812x8n1xag
