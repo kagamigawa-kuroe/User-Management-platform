@@ -20,7 +20,7 @@
         </el-form-item>
 
         <el-form-item label="Password" prop="password" style="width: 380px">
-          <el-input v-model="loginForm.password"></el-input>
+          <el-input v-model="loginForm.password" type="password"></el-input>
         </el-form-item>
 
         <el-form-item label="Auth code" prop="code"  style="width: 380px;">

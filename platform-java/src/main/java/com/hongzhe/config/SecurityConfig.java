@@ -1,15 +1,16 @@
 package com.hongzhe.config;
 
-import com.hongzhe.security.CaptureFilter;
-import com.hongzhe.security.LoginFailureHandler;
-import com.hongzhe.security.LoginSuccessHandler;
+import com.hongzhe.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -25,6 +26,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CaptureFilter captureFilter;
+
+    @Autowired
+    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    @Autowired
+    JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+    @Autowired
+    UserDetailServiceImpl userDetailService;
+
+    @Bean
+    JwtFilter jwtFilter(){
+        JwtFilter jwtFilter = null;
+        try {
+            jwtFilter = new JwtFilter(authenticationManager());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jwtFilter;
+    }
+
+    @Bean
+    BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     private static final String[] URL_WHITELIST = {
 
@@ -55,6 +81,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
                 .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                .and()
+                .addFilter(jwtFilter())
                 .addFilterBefore(captureFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailService);
     }
 }

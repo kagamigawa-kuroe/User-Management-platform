@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hongzhe.mapper.SysUserMapper">
 
+    <select id="getNavMenuIds" resultType="java.lang.Long">
+        SELECT
+            DISTINCT rm.menu_id
+        FROM
+            sys_user_role ur
+                LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
+
+        WHERE ur.user_id = #{userId}
+
+    </select>
 </mapper>
