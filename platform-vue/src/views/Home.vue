@@ -7,7 +7,7 @@
       <el-header>
         <strong>Background management system</strong>
         <div class="header-avater">
-          <el-avatar :src="userInfo.avater"></el-avatar>
+          <el-avatar :src="userInfo.avatar"></el-avatar>
           <el-dropdown>
             <span class="el-dropdown-link">
                {{userInfo.username}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -50,7 +50,8 @@ export default {
       userInfo:{
         id:"",
         username:"",
-        avater:""
+        avatar:"",
+        created:""
       }
     }
   },

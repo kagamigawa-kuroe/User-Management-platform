@@ -1,5 +1,6 @@
 package com.hongzhe.controller;
 
+import com.hongzhe.service.*;
 import com.hongzhe.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,4 +12,19 @@ public class BaseController {
 
     @Autowired
     RedisUtil redisUtil;
+
+    @Autowired
+    SysUserService sysUserService;
+
+    @Autowired
+    SysRoleService sysRoleService;
+
+    @Autowired
+    SysMenuService sysMenuService;
+
+    @Autowired
+    SysUserRoleService sysUserRoleService;
+
+    @Autowired
+    SysRoleMenuService sysRoleMenuService;
 }

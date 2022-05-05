@@ -1,7 +1,10 @@
 package com.hongzhe.service;
 
+import com.hongzhe.common.dto.SysMenuDto;
 import com.hongzhe.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysMenuService extends IService<SysMenu> {
 
+    List<SysMenuDto> getCurrentUserNav();
+    public List<SysMenu> tree();
 }

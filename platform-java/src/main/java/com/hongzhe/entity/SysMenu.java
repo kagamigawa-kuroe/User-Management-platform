@@ -1,9 +1,14 @@
 package com.hongzhe.entity;
 
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -22,8 +27,10 @@ public class SysMenu extends BaseEntity {
     /**
      * 父菜单ID，一级菜单为0
      */
+    @NotNull(message = "super menu can't be null")
     private Long parentId;
 
+    @NotNull(message = "menu name can't be null")
     private String name;
 
     /**
@@ -34,6 +41,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 授权(多个用逗号分隔，如：user:list,user:create)
      */
+    @NotBlank(message = "permission can't be null")
     private String perms;
 
     private String component;
@@ -41,6 +49,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 类型     0：目录   1：菜单   2：按钮
      */
+    @NotNull(message = "type can't be null")
     private Integer type;
 
     /**
@@ -52,7 +61,10 @@ public class SysMenu extends BaseEntity {
      * 排序
      */
     @TableField("orderNum")
-    private Integer ordernum;
+    private Integer orderNum;
+
+    @TableField(exist = false)
+    private List<SysMenu> children = new ArrayList<>();
 
 
 }
