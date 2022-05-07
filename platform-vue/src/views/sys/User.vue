@@ -120,9 +120,8 @@
     </el-pagination>
 
 
-    <!--新增对话框-->
     <el-dialog
-        title="提示"
+        title="prompt"
         :visible.sync="dialogVisible"
         width="600px"
         :before-close="handleClose">
@@ -159,7 +158,6 @@
       </div>
     </el-dialog>
 
-    <!-- 分配权限对话框 -->
     <el-dialog title="assign roles" :visible.sync="roleDialogFormVisible" width="600px">
 
       <el-form :model="roleForm">
@@ -243,12 +241,10 @@ export default {
       this.delBtlStatu = val.length == 0
     },
     handleSizeChange(val) {
-      console.log(`${val} data every page`);
       this.size = val
       this.getUserList()
     },
     handleCurrentChange(val) {
-      console.log(`The current page: ${val}`);
       this.current = val
       this.getUserList()
     },

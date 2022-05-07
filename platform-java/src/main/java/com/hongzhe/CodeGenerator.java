@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CodeGenerator {
-    
+
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
