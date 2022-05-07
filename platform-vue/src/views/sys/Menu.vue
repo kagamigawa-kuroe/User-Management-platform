@@ -73,7 +73,7 @@
           <el-divider direction="vertical"></el-divider>
 
           <template>
-            <el-popconfirm title="Are you sure to delete this?" @confirm="delHandle">
+            <el-popconfirm title="Are you sure to delete this?" @confirm="delHandle(scope.row.id)">
               <el-button type="text" slot="reference">Delete</el-button>
             </el-popconfirm>
           </template>

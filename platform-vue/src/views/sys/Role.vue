@@ -52,13 +52,13 @@
       </el-table-column>
 
       <el-table-column
-          property="describe"
-          label="Describe"
+          property="remark"
+          label="describe"
           show-overflow-tooltip>
       </el-table-column>
 
       <el-table-column
-          prop="status"
+          prop="statu"
           label="status">
         <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.statu === 1" type="success">normal</el-tag>
@@ -106,20 +106,19 @@
         :before-close="handleClose">
       <el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-        <el-form-item label="user name" prop="user name" label-width="100px">
+        <el-form-item label="name" prop="name" label-width="100px">
           <el-input v-model="editForm.name" autocomplete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="code" prop="code" label-width="100px">
-          <el-input v-model="editForm.perms" autocomplete="off"></el-input>
+          <el-input v-model="editForm.code" autocomplete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="describe" prop="describe" label-width="100px">
+        <el-form-item label="describe" prop="remark" label-width="100px">
           <el-input v-model="editForm.icon" autocomplete="off"></el-input>
         </el-form-item>
 
-
-        <el-form-item label="status" prop="statu" label-width="100px">
+        <el-form-item label="statu" prop="statu" label-width="100px">
           <el-radio-group v-model="editForm.statu">
             <el-radio :label=0>disable</el-radio>
             <el-radio :label=1>normal</el-radio>
@@ -190,9 +189,9 @@ export default {
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
-      total:'0',
-      size:'10',
-      current:'1',
+      total:0,
+      size:10,
+      current:1,
       perTreedata: [],
       defaultProps: {
         children: 'children',
@@ -287,8 +286,7 @@ export default {
           ids.push(row.id)
         })
       }
-      alert(ids)
-      this.$axios.post("/sys/role/delete/" + id).then(res => {
+      this.$axios.post("/sys/role/delete", ids).then(res => {
         this.$message({
           showClose: true,
           message: 'Congratulations, the operation is successful',
@@ -299,6 +297,7 @@ export default {
         });
       })
     },
+
     permHandle(id) {
       this.permdialogVisible = true
       this.$axios.get("/sys/role/info/" + id).then(res => {

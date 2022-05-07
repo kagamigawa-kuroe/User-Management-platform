@@ -55,7 +55,7 @@
           prop="code"
           label="role name">
         <template slot-scope="scope">
-          <el-tag size="small" type="info" v-for="item in scope.row.roles">{{item.name}}</el-tag>
+          <el-tag size="small" type="info" v-for="item in scope.row.sysRoles">{{item.name}}</el-tag>
         </template>
 
       </el-table-column>

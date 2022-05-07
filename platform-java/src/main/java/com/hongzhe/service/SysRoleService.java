@@ -3,9 +3,11 @@ package com.hongzhe.service;
 import com.hongzhe.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
- *  服务类
+ *  service class
  * </p>
  *
  * @author Hongzhe
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysRoleService extends IService<SysRole> {
 
+    List<SysRole> listRolesByUserId(Long id);
 }

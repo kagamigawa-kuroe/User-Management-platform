@@ -1,7 +1,10 @@
 package com.hongzhe.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,5 +34,7 @@ public class SysUser extends BaseEntity {
 
     private LocalDateTime lastLogin;
 
+    @TableField(exist = false)
+    private List<SysRole> sysRoles = new ArrayList<>();
 
 }

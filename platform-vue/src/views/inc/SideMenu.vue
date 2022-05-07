@@ -6,8 +6,8 @@
       text-color="#fff"
       active-text-color="#ffd04b">
 
-    <router-link to="index">
-      <el-menu-item index="Index"  @click="selectMenu({name: 'index', title: 'index'})">
+    <router-link to="/index">
+      <el-menu-item index="Index">
         <template slot="title">
           <i class="el-icon-s-home"></i>
           <span slot="title">index</span>

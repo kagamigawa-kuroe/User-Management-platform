@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable()
 
-                // 登录配置
+                // login configuration
                 .formLogin()
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
@@ -76,12 +76,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(jwtLogoutSuccessHandler)
 
-                // 禁用session
+                // forbidden session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                // 配置拦截规则
+                // Configure interception Rules
                 .and()
                 .authorizeRequests()
                 .antMatchers(URL_WHITELIST).permitAll()

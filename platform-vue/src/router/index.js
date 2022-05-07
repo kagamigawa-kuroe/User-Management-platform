@@ -3,9 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import index from "../views/index";
-import User from "@/views/sys/User";
-import Menu from "@/views/sys/Menu";
-import Role from "@/views/sys/Role";
 import UserCenter from "@/views/UserCenter";
 
 import axios from "axios";
@@ -21,28 +18,19 @@ const routes = [
       {
         path: '/index',
         name: 'index',
+        meta: {
+          title: index
+        },
         component: index
       },
       {
         path: '/userCenter',
         name: 'UserCenter',
+        meta: {
+          title: "user center"
+        },
         component: UserCenter
       },
-      // {
-      //   path: '/sys/users',
-      //   name: 'User',
-      //   component: User
-      // },
-      // {
-      //   path: '/sys/role',
-      //   name: 'Role',
-      //   component: Role
-      // },
-      // {
-      //   path: '/sys/menu',
-      //   name: 'Menu',
-      //   component: Menu
-      // }
     ]
   },
   {
@@ -62,7 +50,13 @@ router.beforeEach((to,from,next) =>{
 
   let hasRoute = store.state.menus.hasRoute
 
-  if(!hasRoute){
+  let token = localStorage.getItem("token")
+
+  if(to.path=='/login'){
+    next()
+  }else if (token && !token){
+    next({path:'/login'})
+  } else if(!hasRoute){
     axios.get("/sys/menu/nav",{
       headers:{
         Authorization:localStorage.getItem("token")

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ *  service class
  * </p>
  *
  * @author Hongzhe

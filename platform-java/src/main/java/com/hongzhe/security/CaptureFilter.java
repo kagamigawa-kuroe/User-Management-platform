@@ -31,11 +31,11 @@ public class CaptureFilter extends OncePerRequestFilter {
         if ("/login".equals(url) && httpServletRequest.getMethod().equals("POST")) {
 
             try{
-                // 校验验证码
+                // Verification code
                 validate(httpServletRequest);
             } catch (CaptchaException exception) {
 
-                // 交给认证失败处理器
+                // To the authentication failure handler
                 loginFailureHandler.onAuthenticationFailure(httpServletRequest, httpServletResponse, exception);
             }
         }
@@ -43,21 +43,20 @@ public class CaptureFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    // 校验验证码逻辑
+    // Verification code logic
     private void validate(HttpServletRequest httpServletRequest) {
 
         String code = httpServletRequest.getParameter("code");
         String key = httpServletRequest.getParameter("token");
 
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
-            throw new CaptchaException("验证码错误");
+            throw new CaptchaException("Verification code incorrect");
         }
 
         if (!code.equals(redisUtil.hget(Const.CAPTCHA_KET, key))) {
-            throw new CaptchaException("验证码错误");
+            throw new CaptchaException("Verification code incorrect");
         }
 
-        // 一次性使用
         redisUtil.hdel(Const.CAPTCHA_KET, key);
     }
 }
