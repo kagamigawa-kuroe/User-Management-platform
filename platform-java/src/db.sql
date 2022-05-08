@@ -61,7 +61,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('3', 'Normal User', 'normal', 'Only basic view function', '2021-01-04 10:09:14', '2021-01-30 08:19:52', '1');
-INSERT INTO `sys_role` VALUES ('6', 'Admin User', 'admin', 'By default, the system has the highest permission and cannot edit or modify it arbitrarily', '2021-01-16 13:29:03', '2021-01-17 15:50:45', '1');
+INSERT INTO `sys_role` VALUES ('6', 'Admin User', 'admin', 'the system has the highest permission and cannot edit or modify', '2021-01-16 13:29:03', '2021-01-17 15:50:45', '1');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
