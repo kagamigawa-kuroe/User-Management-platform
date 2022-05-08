@@ -41,5 +41,14 @@ Back end :
 
 ### Main functions
 
+---
 
+> A complete user management platform who realize the classification, management and presentation of registered users, such as :
+>
+> - Crud operation of user's information. 
+> - Curd operation of menu who corresponding to the operation about users.
+> - Permission management system, different levels of users have different operation rights and menus. 
+> - User login and logout, by jwt authentication.
+> - ...
 
+ 
